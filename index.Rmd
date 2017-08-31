@@ -16,9 +16,9 @@ For a paragraph, just type normally
 
 Colummn 1 | Column 2
 ---|---
-Phillies | Nationnal
-Yankees | American
-Cubs | National
-Red Sox | American
+Eagles | NFC
+Steelers | AFC
+Doplhins | NFC
+Panthers | NFC
 
 <img src="mercyhurst_gates2.jpg" width="300"/>

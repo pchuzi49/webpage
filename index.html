@@ -156,6 +156,42 @@ sqldf(query)</code></pre>
 ## 24 thomamy01   1927    NYA  0
 ## 25  weraju01   1927    NYA  1</code></pre>
 </div>
+<div id="section" class="section level1">
+<h1>———————</h1>
+<p>Finding players with fewer than 60 strikeout but more than 40 homeruns</p>
+<pre class="r"><code>query&lt;-&quot;SELECT playerID, teamID, yearID, HR, SO FROM Batting WHERE SO&lt;60 and HR&gt;40&quot;
+
+sqldf(query)</code></pre>
+<pre><code>##     playerID teamID yearID HR SO
+## 1  hornsro01    SLN   1922 42 50
+## 2  willicy01    PHI   1923 41 57
+## 3    ottme01    NY1   1929 42 38
+## 4  gehrilo01    NYA   1931 46 56
+## 5   ruthba01    NYA   1931 46 51
+## 6  gehrilo01    NYA   1934 49 31
+## 7  gehrilo01    NYA   1936 49 46
+## 8  troskha01    CLE   1936 42 58
+## 9  dimagjo01    NYA   1937 46 37
+## 10  mizejo01    SLN   1940 43 49
+## 11  mizejo01    NY1   1947 51 42
+## 12 willite01    BOS   1949 43 48
+## 13 kinerra01    PIT   1951 42 57
+## 14 camparo01    BRO   1953 41 58
+## 15 rosenal01    CLE   1953 43 48
+## 16 kluszte01    CIN   1954 49 35
+## 17  mayswi01    NY1   1954 41 57
+## 18 kluszte01    CIN   1955 47 40
+## 19 aaronha01    ML1   1957 44 58
+## 20 sievero01    WS1   1957 42 55
+## 21 aaronha01    ATL   1969 44 47
+## 22 aaronha01    ATL   1971 47 58
+## 23 thomafr04    CHA   1993 41 54
+## 24 bondsba01    SFN   2002 46 47
+## 25 bondsba01    SFN   2003 45 58
+## 26 bondsba01    SFN   2004 45 41
+## 27 pujolal01    SLN   2004 46 52
+## 28 pujolal01    SLN   2006 49 50</code></pre>
+</div>
 
 
 

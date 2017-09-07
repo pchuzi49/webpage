@@ -19,4 +19,10 @@ query<-"SELECT playerID,yearID,teamID,HR from Batting
 WHERE teamID='NYA'and yearID=1927"
 sqldf(query)
 ```
+#---------------------
+Finding players with fewer than 60 strikeout but more than 40 homeruns
+```{r}
+query<-"SELECT playerID, teamID, yearID, HR, SO FROM Batting WHERE SO<60 and HR>40"
 
+sqldf(query)
+```

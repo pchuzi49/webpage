@@ -11,8 +11,8 @@ with SQL, you can filter columns with SELECT and rows with WHERE.  Let's look at
 library(Lahman)
 library(sqldf)
 ```
-
-suppose we want to see the homerun totals for the 1927 Yankees.  We could write the following:
+#--------------------
+Suppose we want to see the homerun totals for the 1927 Yankees.  We could write the following:
 
 ```{r}
 query<-"SELECT playerID,yearID,teamID,HR from Batting
@@ -26,3 +26,32 @@ query<-"SELECT playerID, teamID, yearID, HR, SO FROM Batting WHERE SO<60 and HR>
 
 sqldf(query)
 ```
+#--------------------
+All instances where PHI hit more than 30 HR in the 1970s
+```{r}
+query<-"SELECT playerID, teamID, yearID, HR FROM Batting WHERE teamID='PHI' and yearID>=1970 and yearID<1980 and HR>30"
+
+sqldf(query)
+```
+
+#------------------
+##Order By
+
+Find every instance of a player hitting more than 50 HR's, but let's have the players with the most HR at the top of the list.
+
+```{r}
+query<-"SELECT playerID, teamID, yearID, HR FROM Batting WHERE HR>50
+ORDER BY HR DESC"
+
+sqldf(query)
+```
+
+#-----------------
+Find all instance of a player who batted at least 400 times, but struck out less then 10 times with the least amount of strikeouts at the top.
+```{r}
+query<-"SELECT playerID, teamID, yearID, SO, AB FROM Batting WHERE AB>=400 and SO<10
+ORDER BY SO"
+
+sqldf(query)
+```
+

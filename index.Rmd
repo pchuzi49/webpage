@@ -2,7 +2,7 @@
 title: "SQL"
 output: html_document
 ---
-
+#------------------------------------------------------------
 ## Filtering Rows and Columns
 
 with SQL, you can filter columns with SELECT and rows with WHERE.  Let's look at an example using the Lahman baseball database.  First, we need to load some packages.
@@ -20,24 +20,25 @@ WHERE teamID='NYA'and yearID=1927"
 sqldf(query)
 ```
 #---------------------
-Finding players with fewer than 60 strikeout but more than 40 homeruns
+Ex.) Finding players with fewer than 60 strikeout but more than 40 homeruns
 ```{r}
 query<-"SELECT playerID, teamID, yearID, HR, SO FROM Batting WHERE SO<60 and HR>40"
 
 sqldf(query)
 ```
 #--------------------
-All instances where PHI hit more than 30 HR in the 1970s
+Ex.) All instances where PHI hit more than 30 HR in the 1970s
 ```{r}
 query<-"SELECT playerID, teamID, yearID, HR FROM Batting WHERE teamID='PHI' and yearID>=1970 and yearID<1980 and HR>30"
 
 sqldf(query)
 ```
 
-#------------------
+#------------------------------------------------------------
 ##Order By
+######This allows for your data to be organized in ascending or descending order.
 
-Find every instance of a player hitting more than 50 HR's, but let's have the players with the most HR at the top of the list.
+Ex.) Find every instance of a player hitting more than 50 HR's, but let's have the players with the most HR at the top of the list.
 
 ```{r}
 query<-"SELECT playerID, teamID, yearID, HR FROM Batting WHERE HR>50
@@ -47,10 +48,57 @@ sqldf(query)
 ```
 
 #-----------------
-Find all instance of a player who batted at least 400 times, but struck out less then 10 times with the least amount of strikeouts at the top.
+Ex.) Find all instance of a player who batted at least 400 times, but struck out less then 10 times with the least amount of strikeouts at the top.
 ```{r}
 query<-"SELECT playerID, teamID, yearID, SO, AB FROM Batting WHERE AB>=400 and SO<10
 ORDER BY SO"
+
+sqldf(query)
+```
+#------------------------------------------------------------
+##Aggregation
+
+Ex.) Find Babe Ruth's career home run total.
+```{r}
+query<-"SELECT playerID, sum(HR)
+FROM Batting
+WHERE playerID='ruthba01'"
+
+sqldf(query)
+```
+#-----------------
+Ex.) Find career HR totals of all players, but limit the display to only those that have 600 or more. have the player with the highest total at the top.
+```{r}
+query<-"SELECT playerID, sum(HR) 
+FROM Batting
+GROUP BY playerID
+HAVING sum(HR)>=600
+ORDER BY sum(HR) DESC"
+
+sqldf(query)
+```
+
+
+#------------------------------------------------------------
+##Joins
+###### This allows for more than one table to be used
+Ex.) List first name, last name, yearID, teamID, and HR for only Babe Ruth.
+```{r}
+query<-"SELECT nameFirst, nameLast, yearID, teamID, HR
+FROM Batting INNER JOIN Master
+ON Batting. playerID= Master. playerID
+WHERE Batting. playerID= 'ruthba01'"
+
+sqldf(query)
+```
+
+#---------------
+Ex.) Find all instances of players hitting more than 50 homeruns. Give first and last names, teamID, yearID, and HRs.
+```{r}
+query<-"SELECT nameFirst, nameLast, yearID, teamID, HR
+FROM Batting INNER JOIN Master
+ON Batting. playerID = Master. playerID
+WHERE Batting. HR>50"
 
 sqldf(query)
 ```
